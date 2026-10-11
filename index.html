@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071008">
+  <meta name="description" content="Ensasys by Ethan Htoon — a neon pixel-art portfolio featuring programming-language projects, AI experiments, data tools, IoT simulations, and games. Around 10 years of programming experience.">
+  <title>ENSASYS // Ethan Htoon — Neon Pixel Portfolio</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090c11;
+      --panel: #10151d;
+      --panel-2: #131b25;
+      --line: rgba(183, 205, 223, .14);
+      --line-strong: rgba(183, 205, 223, .24);
+      --text: #f2f6fa;
+      --muted: #9ca9b9;
+      --subtle: #6f7d8e;
+      --green: #b8ff70;
+      --cyan: #7ce7e2;
+      --violet: #bea5ff;
+      --orange: #ffc887;
+      --radius: 22px;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6; overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background: radial-gradient(ellipse at 75% 4%, rgba(77, 145, 126, .12), transparent 32%),
+                  radial-gradient(ellipse at 4% 36%, rgba(80, 112, 177, .08), transparent 30%), var(--bg);
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: .18;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 48px 48px; mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .shell { width: min(var(--max), calc(100% - 44px)); margin: 0 auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--green); font-size: .76rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; background: currentColor; border-radius: 2px; box-shadow: 0 0 15px currentColor; }
+    .muted { color: var(--muted); }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(9,12,17,.78); border-bottom: 1px solid rgba(183,205,223,.09); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-size: .95rem; font-weight: 800; letter-spacing: -.025em; }
+    .brand-mark { display: grid; place-items: center; width: 37px; height: 37px; border: 1px solid rgba(184,255,112,.45); border-radius: 12px; color: var(--green); background: rgba(184,255,112,.07); font-size: .77rem; letter-spacing: -.06em; }
+    .brand small { display: block; color: var(--subtle); font-size: .67rem; font-weight: 550; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: var(--muted); font-size: .88rem; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { border: 1px solid var(--line-strong); border-radius: 999px; padding: 10px 16px; color: var(--text) !important; transition: border-color .2s, background .2s; }
+    .nav-cta:hover { border-color: rgba(184,255,112,.55); background: rgba(184,255,112,.07); }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 11px; padding: 9px 11px; cursor: pointer; }
+
+    .hero { padding: 92px 0 74px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(330px, .82fr); align-items: center; gap: 56px; }
+    h1 { font-size: clamp(3rem, 6.3vw, 5.7rem); line-height: .99; letter-spacing: -.075em; margin: 24px 0 25px; max-width: 760px; font-weight: 760; }
+    h1 .accent { color: var(--green); }
+    .hero-copy { max-width: 650px; font-size: clamp(1rem, 1.6vw, 1.12rem); color: #aab6c4; line-height: 1.8; }
+    .hero-copy strong { color: var(--text); font-weight: 650; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid transparent; border-radius: 12px; padding: 12px 17px; font-size: .9rem; font-weight: 750; transition: transform .2s, background .2s, border-color .2s; cursor: pointer; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #0a0d11; background: var(--green); box-shadow: 0 8px 30px rgba(184,255,112,.11); }
+    .button-primary:hover { background: #c8ff91; }
+    .button-secondary { border-color: var(--line-strong); background: rgba(255,255,255,.025); color: var(--text); }
+    .button-secondary:hover { border-color: rgba(124,231,226,.5); background: rgba(124,231,226,.06); }
+    .button .arrow { font-size: 1.15rem; line-height: 1; }
+    .hero-footnote { display: flex; align-items: center; gap: 9px; margin-top: 26px; color: var(--subtle); font-size: .8rem; }
+    .status-dot { height: 7px; width: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(184,255,112,.7); }
+
+    .console { position: relative; min-height: 370px; overflow: hidden; background: linear-gradient(150deg, rgba(24,34,43,.95), rgba(13,18,25,.96)); border: 1px solid var(--line-strong); border-radius: 24px; box-shadow: 0 28px 80px rgba(0,0,0,.26); transform: rotate(1deg); }
+    .console::before { content: ""; position: absolute; width: 270px; height: 270px; right: -90px; bottom: -130px; border: 1px solid rgba(184,255,112,.13); border-radius: 50%; box-shadow: 0 0 0 28px rgba(184,255,112,.025), 0 0 0 60px rgba(184,255,112,.02); }
+    .console-bar { display: flex; align-items: center; gap: 7px; padding: 16px 18px; border-bottom: 1px solid var(--line); color: #8090a0; font: 700 .7rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; text-transform: uppercase; }
+    .console-bar .window-dot { width: 7px; height: 7px; border-radius: 50%; background: #43505d; }
+    .console-bar span:last-child { margin-left: auto; }
+    .console-body { padding: 26px 24px 23px; position: relative; z-index: 1; }
+    .console-kicker { color: var(--green); font: 700 .72rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; }
+    .console-title { margin: 8px 0 18px; font-size: 1.65rem; line-height: 1.2; letter-spacing: -.05em; }
+    .console-title span { color: var(--muted); }
+    .pipeline { display: grid; gap: 8px; }
+    .pipe-row { display: grid; grid-template-columns: 33px 1fr auto; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,.025); border: 1px solid var(--line); border-radius: 10px; font-size: .78rem; }
+    .pipe-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: rgba(184,255,112,.08); color: var(--green); font-size: .82rem; }
+    .pipe-row:nth-child(2) .pipe-icon { background: rgba(124,231,226,.08); color: var(--cyan); }
+    .pipe-row:nth-child(3) .pipe-icon { background: rgba(190,165,255,.08); color: var(--violet); }
+    .pipe-row:nth-child(4) .pipe-icon { background: rgba(255,200,135,.08); color: var(--orange); }
+    .pipe-name { font-weight: 700; }
+    .pipe-detail { display: block; color: var(--subtle); font-size: .68rem; font-weight: 500; }
+    .pipe-status { color: #8f9daa; font: .65rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .console-bottom { margin-top: 17px; padding-top: 15px; border-top: 1px dashed var(--line-strong); display: flex; justify-content: space-between; color: var(--subtle); font: .67rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .console-bottom b { color: var(--green); font-weight: 600; }
+
+    .metrics { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.015); }
+    .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .metric { padding: 24px 27px; border-right: 1px solid var(--line); }
+    .metric:first-child { padding-left: 0; }
+    .metric:last-child { border-right: 0; }
+    .metric strong { display: block; font-size: 1.55rem; letter-spacing: -.045em; }
+    .metric span { color: var(--muted); font-size: .78rem; }
+
+    section { position: relative; }
+    .section { padding: 92px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 32px; }
+    .section-head h2 { margin: 11px 0 0; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.065em; line-height: 1.08; }
+    .section-head p { margin: 0 0 3px; color: var(--muted); max-width: 440px; font-size: .92rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .filter { color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; background: rgba(255,255,255,.02); font-size: .78rem; cursor: pointer; transition: .2s; }
+    .filter:hover { color: var(--text); border-color: var(--line-strong); }
+    .filter[aria-pressed="true"] { color: var(--green); border-color: rgba(184,255,112,.44); background: rgba(184,255,112,.075); }
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .project-card { --project-accent: var(--green); position: relative; min-width: 0; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(145deg, rgba(18,24,33,.94), rgba(13,17,24,.96)); transition: border-color .25s, transform .25s, box-shadow .25s; }
+    .project-card:hover { transform: translateY(-4px); border-color: rgba(184,255,112,.32); box-shadow: 0 20px 55px rgba(0,0,0,.2); }
+    .project-card[hidden] { display: none; }
+    .project-card[data-category="ai"] { --project-accent: var(--violet); }
+    .project-card[data-category="iot"] { --project-accent: var(--cyan); }
+    .project-card[data-category="games"] { --project-accent: var(--orange); }
+    .project-visual { height: 190px; padding: 19px; position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(ellipse at 82% 15%, color-mix(in srgb, var(--project-accent) 13%, transparent), transparent 40%), #0c1118; }
+    .project-visual::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 22px 22px; opacity: .5; }
+    .visual-label { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; color: var(--project-accent); font: 700 .64rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .visual-label span:last-child { color: var(--subtle); letter-spacing: .03em; }
+    .visual-terminal { position: absolute; z-index: 1; left: 20px; right: 20px; bottom: 17px; padding: 13px 15px; background: rgba(6,9,13,.79); border: 1px solid rgba(183,205,223,.17); border-radius: 10px; color: #b9c9d4; font: .7rem/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; box-shadow: 0 12px 26px rgba(0,0,0,.18); }
+    .visual-terminal .prompt { color: var(--project-accent); }
+    .visual-terminal .dim { color: #6c7b89; }
+    .visual-diagram { display: flex; justify-content: center; align-items: center; gap: 9px; height: 100%; position: relative; z-index: 1; padding-bottom: 18px; }
+    .diagram-node { display: flex; align-items: center; justify-content: center; text-align: center; width: 90px; min-height: 58px; padding: 8px; border: 1px solid color-mix(in srgb, var(--project-accent) 40%, transparent); border-radius: 10px; background: color-mix(in srgb, var(--project-accent) 7%, #0a0d12); color: #dfe7ed; font-size: .67rem; font-weight: 700; line-height: 1.35; }
+    .diagram-arrow { color: var(--project-accent); font-size: 1rem; }
+    .visual-editor { position: absolute; z-index: 1; left: 20px; right: 20px; top: 51px; bottom: 17px; display: grid; grid-template-columns: 32% 1fr; gap: 9px; }
+    .editor-side, .editor-main { border: 1px solid var(--line-strong); border-radius: 8px; background: rgba(7,10,15,.76); padding: 10px; }
+    .editor-line { height: 5px; width: 80%; margin: 8px 0; border-radius: 5px; background: rgba(190,165,255,.45); }
+    .editor-line:nth-child(2n) { width: 56%; background: rgba(183,205,223,.17); }
+    .editor-line:nth-child(3n) { width: 67%; background: rgba(124,231,226,.34); }
+    .editor-main .editor-line { margin: 10px 0; }
+    .maze-board { position: absolute; z-index: 1; top: 48px; left: 50%; transform: translateX(-50%); display: grid; grid-template-columns: repeat(9, 17px); gap: 3px; padding: 9px; border: 1px solid rgba(190,165,255,.25); border-radius: 8px; background: #0b0f15; }
+    .maze-cell { width: 17px; height: 17px; background: rgba(190,165,255,.24); border-radius: 2px; }
+    .maze-cell.wall { background: rgba(190,165,255,.65); }
+    .maze-cell.agent { background: var(--green); box-shadow: 0 0 12px rgba(184,255,112,.65); }
+    .maze-cell.goal { background: var(--orange); }
+    .robot-stage { display: flex; justify-content: center; align-items: center; gap: 28px; height: 100%; position: relative; z-index: 1; padding-top: 7px; }
+    .pixel-bot { position: relative; width: 54px; height: 50px; background: color-mix(in srgb, var(--project-accent) 70%, #fff); border: 3px solid #0a0d12; box-shadow: 0 0 0 1px color-mix(in srgb, var(--project-accent) 50%, transparent), 0 12px 28px rgba(0,0,0,.24); image-rendering: pixelated; }
+    .pixel-bot::before { content: ""; position: absolute; width: 8px; height: 8px; left: 10px; top: 13px; background: #0a0d12; box-shadow: 19px 0 #0a0d12; }
+    .pixel-bot::after { content: ""; position: absolute; width: 20px; height: 3px; left: 14px; bottom: 8px; background: #0a0d12; }
+    .pixel-bot.second { transform: translateY(12px); background: var(--cyan); }
+    .robot-orb { position: absolute; width: 115px; height: 115px; border: 1px dashed color-mix(in srgb, var(--project-accent) 36%, transparent); border-radius: 50%; }
+    .game-screen { width: 238px; max-width: 90%; height: 125px; border: 5px solid #35332e; border-radius: 13px; background: #b6c879; box-shadow: 0 9px 0 #171b15; z-index: 1; position: relative; display: grid; place-items: center; overflow: hidden; }
+    .game-pixel { position: absolute; background: #333d27; width: 15px; height: 15px; box-shadow: 29px 0 #333d27, 58px 0 #333d27, 29px 15px #333d27, 87px 30px #333d27, 116px 30px #333d27, 87px 45px #333d27, 145px 60px #333d27; }
+    .game-title { z-index: 2; color: #293222; font: 900 .95rem ui-monospace, SFMono-Regular, Menlo, monospace; text-align: center; background: rgba(182,200,121,.82); padding: 5px 8px; letter-spacing: -.04em; }
+    .project-content { padding: 23px 24px 22px; }
+    .project-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .project-type { color: var(--project-accent); font-size: .68rem; font-weight: 800; letter-spacing: .105em; text-transform: uppercase; }
+    .project-number { color: #536170; font: .68rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .project-card h3 { margin: 0 0 9px; font-size: 1.3rem; line-height: 1.25; letter-spacing: -.04em; }
+    .project-card p { margin: 0; min-height: 76px; color: var(--muted); font-size: .86rem; line-height: 1.7; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; padding: 17px 0 20px; }
+    .tag { border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; color: #a6b3c1; font-size: .68rem; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 15px; border-top: 1px solid var(--line); padding-top: 15px; }
+    .project-link { display: inline-flex; gap: 7px; align-items: center; color: var(--text); font-size: .79rem; font-weight: 750; }
+    .project-link .link-arrow { color: var(--project-accent); font-size: 1rem; transition: transform .2s; }
+    .project-link:hover .link-arrow { transform: translate(2px,-2px); }
+    .project-link.secondary { color: var(--muted); font-weight: 550; }
+    .project-link.secondary .link-arrow { color: var(--muted); }
+    .project-counter { color: var(--subtle); font: .72rem ui-monospace, SFMono-Regular, Menlo, monospace; margin-left: auto; align-self: center; }
+
+    .capabilities { padding-top: 58px; }
+    .cap-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.015); overflow: hidden; }
+    .capability { padding: 27px; border-right: 1px solid var(--line); }
+    .capability:last-child { border-right: 0; }
+    .cap-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 22px; border: 1px solid rgba(184,255,112,.24); border-radius: 12px; color: var(--green); background: rgba(184,255,112,.06); font-size: 1.15rem; }
+    .capability:nth-child(2) .cap-icon { border-color: rgba(124,231,226,.24); color: var(--cyan); background: rgba(124,231,226,.06); }
+    .capability:nth-child(3) .cap-icon { border-color: rgba(190,165,255,.24); color: var(--violet); background: rgba(190,165,255,.06); }
+    .capability h3 { margin: 0 0 8px; font-size: 1rem; letter-spacing: -.02em; }
+    .capability p { margin: 0; color: var(--muted); font-size: .83rem; line-height: 1.75; }
+
+    .process { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; align-items: start; }
+    .process-intro h2 { margin: 13px 0 17px; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.05; letter-spacing: -.065em; }
+    .process-intro p { color: var(--muted); max-width: 390px; font-size: .9rem; }
+    .steps { border-top: 1px solid var(--line); }
+    .step { display: grid; grid-template-columns: 50px 1fr; gap: 17px; padding: 21px 0; border-bottom: 1px solid var(--line); }
+    .step-no { color: var(--green); font: 700 .78rem ui-monospace, SFMono-Regular, Menlo, monospace; padding-top: 3px; }
+    .step h3 { margin: 0 0 5px; font-size: 1rem; }
+    .step p { color: var(--muted); margin: 0; font-size: .83rem; }
+
+    .contact { padding: 10px 0 96px; }
+    .contact-panel { position: relative; overflow: hidden; border: 1px solid rgba(184,255,112,.23); border-radius: 26px; background: radial-gradient(ellipse at 88% 12%, rgba(184,255,112,.09), transparent 35%), linear-gradient(140deg, #141c22, #0f141b 64%); padding: clamp(28px, 5vw, 52px); display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+    .contact-panel::after { content: "E"; position: absolute; right: 25%; top: -105px; color: rgba(184,255,112,.035); font-weight: 900; font-size: 340px; line-height: 1; pointer-events: none; }
+    .contact-content { position: relative; z-index: 1; max-width: 650px; }
+    .contact h2 { margin: 12px 0 12px; font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.05; letter-spacing: -.065em; }
+    .contact p { color: var(--muted); margin: 0; max-width: 570px; font-size: .9rem; }
+    .contact-actions { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; min-width: 190px; }
+    .contact-actions .button { white-space: nowrap; }
+    .contact-note { margin-top: 14px; color: var(--subtle); font-size: .72rem; }
+    footer { border-top: 1px solid var(--line); padding: 25px 0 32px; color: var(--subtle); font-size: .75rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 18px; align-items: center; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--text); }
+    .toast { position: fixed; z-index: 40; left: 50%; bottom: 22px; transform: translate(-50%, 16px); padding: 10px 15px; color: var(--text); border: 1px solid var(--line-strong); border-radius: 10px; background: #161e27; box-shadow: 0 14px 35px rgba(0,0,0,.35); font-size: .82rem; opacity: 0; pointer-events: none; transition: .25s; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .reveal { opacity: 0; transform: translateY(13px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 900px) {
+      .hero { padding-top: 70px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .console { max-width: 560px; width: 100%; transform: none; }
+      .project-visual { height: 175px; }
+      .process { grid-template-columns: 1fr; gap: 30px; }
+      .process-intro p { max-width: 600px; }
+      .contact-panel { align-items: flex-start; flex-direction: column; }
+      .contact-actions { flex-direction: row; flex-wrap: wrap; }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(var(--max), calc(100% - 30px)); }
+      .nav { min-height: 67px; }
+      .menu-toggle { display: inline-flex; align-items: center; gap: 7px; }
+      .nav-links { display: none; position: absolute; top: 66px; left: 15px; right: 15px; flex-direction: column; align-items: stretch; gap: 0; padding: 9px; border: 1px solid var(--line-strong); border-radius: 15px; background: rgba(12,17,24,.97); box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 13px; border-radius: 9px; }
+      .nav-links a:hover { background: rgba(255,255,255,.04); }
+      .nav-links .nav-cta { border: 0; }
+      .hero { padding: 56px 0 50px; }
+      h1 { font-size: clamp(2.8rem, 13vw, 4.2rem); }
+      .hero-copy { font-size: .98rem; }
+      .hero-actions { align-items: stretch; }
+      .hero-actions .button { flex: 1; }
+      .console { min-height: 0; }
+      .console-body { padding: 20px 15px 16px; }
+      .pipe-row { grid-template-columns: 30px 1fr auto; gap: 8px; padding: 9px; }
+      .pipe-status { font-size: .58rem; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric { padding: 18px 12px; border-bottom: 1px solid var(--line); }
+      .metric:first-child { padding-left: 12px; }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(3), .metric:nth-child(4) { border-bottom: 0; }
+      .section { padding: 66px 0; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 13px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card p { min-height: 0; }
+      .project-visual { height: 190px; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .capability { border-right: 0; border-bottom: 1px solid var(--line); padding: 23px; }
+      .capability:last-child { border-bottom: 0; }
+      .cap-icon { margin-bottom: 14px; }
+      .contact { padding-bottom: 65px; }
+      .contact-actions { width: 100%; }
+      .contact-actions .button { flex: 1; }
+      .footer-row { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 390px) {
+      .button { padding: 11px 12px; font-size: .82rem; }
+      .hero-actions { flex-direction: column; }
+      .project-content { padding: 21px 18px; }
+      .diagram-node { width: 75px; font-size: .6rem; }
+      .diagram-arrow { font-size: .8rem; }
+      .visual-terminal { font-size: .62rem; }
+    }
+
+
+    /* ENSASYS neon pixel-art refresh: compact first screen, same projects and interactions. */
+    :root {
+      --bg: #050906;
+      --panel: #0a130c;
+      --panel-2: #0d1b10;
+      --line: rgba(89, 255, 127, .24);
+      --line-strong: rgba(89, 255, 127, .48);
+      --text: #e7ffe9;
+      --muted: #a6caaa;
+      --subtle: #63866b;
+      --green: #76ff57;
+      --cyan: #53f6f2;
+      --violet: #ff69e6;
+      --orange: #ffe45e;
+      --radius: 3px;
+    }
+    html { scroll-padding-top: 74px; }
+    body {
+      background: #050906;
+      font-family: "Courier New", Consolas, monospace;
+      letter-spacing: -.015em;
+    }
+    body::before {
+      background: radial-gradient(ellipse at 50% 0%, rgba(35,255,84,.11), transparent 46%), #050906;
+    }
+    body::after {
+      opacity: .28;
+      background-image: linear-gradient(rgba(118,255,87,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(118,255,87,.07) 1px, transparent 1px);
+      background-size: 20px 20px;
+      mask-image: linear-gradient(to bottom, black, transparent 100%);
+    }
+    .topbar {
+      background: rgba(4, 9, 5, .96);
+      border-bottom: 2px solid rgba(118,255,87,.5);
+      backdrop-filter: none;
+      box-shadow: 0 3px 0 rgba(118,255,87,.06);
+    }
+    .nav { min-height: 59px; }
+    .brand { font-family: "Courier New", monospace; letter-spacing: .04em; }
+    .brand-mark {
+      border-radius: 2px; border: 2px solid var(--green); background: #0c210d;
+      box-shadow: 3px 3px 0 rgba(118,255,87,.2); color: var(--green);
+    }
+    .brand small { color: var(--cyan); letter-spacing: .04em; }
+    .nav-links { gap: 20px; font-size: .78rem; }
+    .nav-cta { border-radius: 2px; border: 1px solid var(--green); }
+    .menu-toggle { border-radius: 2px; border-color: var(--green); }
+    .hero { padding: 25px 0 20px; }
+    .hero-grid { display: block; }
+    .hero-text { max-width: 1050px; }
+    .eyebrow {
+      font-family: "Courier New", monospace; font-size: .72rem; letter-spacing: .08em;
+    }
+    .eyebrow::before { width: 8px; height: 8px; border-radius: 0; box-shadow: 0 0 9px currentColor; }
+    h1 {
+      max-width: 1000px; margin: 9px 0 9px; font-family: "Courier New", Consolas, monospace;
+      font-size: clamp(2.05rem, 4.45vw, 3.75rem); line-height: 1.05; letter-spacing: -.075em;
+      text-shadow: 3px 3px 0 rgba(118,255,87,.11);
+    }
+    h1 .accent { color: var(--green); text-shadow: 0 0 16px rgba(118,255,87,.24); }
+    .hero-copy { max-width: 920px; color: #b7d9bd; font-size: .92rem; line-height: 1.6; }
+    .hero-copy strong { color: #fff; }
+    .experience-panel {
+      max-width: 1000px; margin: 13px 0 16px; padding: 11px 14px;
+      border: 2px solid var(--green); background: rgba(7, 25, 9, .93);
+      box-shadow: 4px 4px 0 rgba(118,255,87,.16);
+    }
+    .experience-top { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; color: var(--green); font-size: .75rem; letter-spacing: .035em; }
+    .experience-led { width: 9px; height: 9px; background: var(--green); box-shadow: 0 0 9px var(--green); image-rendering: pixelated; }
+    .experience-status { margin-left: auto; color: var(--cyan); font-size: .68rem; }
+    .experience-panel p { margin: 7px 0 0; max-width: 930px; color: #c1dec4; font-size: .8rem; line-height: 1.55; }
+    .hero-actions { margin-top: 14px; gap: 9px; }
+    .button {
+      border-radius: 2px; padding: 10px 13px; font-family: "Courier New", monospace;
+      font-size: .77rem; letter-spacing: -.02em; box-shadow: 3px 3px 0 rgba(0,0,0,.34);
+    }
+    .button:hover { transform: translate(-1px, -1px); }
+    .button-primary { background: var(--green); color: #031004; box-shadow: 3px 3px 0 #357c29; }
+    .button-primary:hover { background: #a0ff89; }
+    .button-secondary { border: 1px solid var(--cyan); background: #07140f; color: #d9fff8; }
+    .button-secondary:hover { border-color: var(--green); background: #0b2110; }
+    .hero-footnote { margin-top: 15px; font-family: "Courier New", monospace; font-size: .7rem; }
+    .status-dot { height: 7px; width: 7px; border-radius: 0; background: var(--green); box-shadow: 0 0 9px var(--green); }
+    .metrics { background: rgba(7, 18, 8, .85); border-color: rgba(118,255,87,.25); }
+    .metric { padding: 13px 20px; border-color: rgba(118,255,87,.19); }
+    .metric strong { font-family: "Courier New", monospace; font-size: 1.15rem; color: var(--green); }
+    .metric span { font-size: .68rem; color: var(--muted); }
+    .section { padding: 20px 0 54px; }
+    #projects { padding-top: 17px; }
+    .section-head { align-items: center; gap: 20px; margin-bottom: 15px; }
+    .section-head h2 { margin: 5px 0 0; font-size: clamp(1.5rem, 2.9vw, 2.25rem); line-height: 1.12; letter-spacing: -.06em; }
+    .section-head p { max-width: 460px; font-size: .77rem; line-height: 1.55; }
+    .filters { gap: 7px; margin-bottom: 14px; }
+    .filter {
+      border-radius: 2px; border: 1px solid rgba(118,255,87,.26); background: #071009;
+      color: #a6caaa; padding: 6px 10px; font-family: "Courier New", monospace; font-size: .68rem;
+    }
+    .filter[aria-pressed="true"] { color: #061006; border-color: var(--green); background: var(--green); box-shadow: 2px 2px 0 #357c29; }
+    .project-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+    .project-card {
+      border-radius: 2px; border: 1px solid rgba(118,255,87,.3);
+      background: linear-gradient(160deg, rgba(8,20,10,.98), rgba(5,12,7,.99));
+      box-shadow: 3px 3px 0 rgba(118,255,87,.1); transition: border-color .15s, transform .15s, box-shadow .15s;
+    }
+    .project-card:hover { transform: translate(-2px,-2px); border-color: var(--project-accent); box-shadow: 5px 5px 0 color-mix(in srgb, var(--project-accent) 35%, transparent), 0 0 16px color-mix(in srgb, var(--project-accent) 11%, transparent); }
+    .project-card[data-category="ai"] { --project-accent: var(--violet); }
+    .project-card[data-category="iot"] { --project-accent: var(--cyan); }
+    .project-card[data-category="games"] { --project-accent: var(--orange); }
+    .project-visual {
+      height: 145px; padding: 13px; border-bottom: 1px solid color-mix(in srgb, var(--project-accent) 35%, transparent);
+      background-color: #061009; background-image: linear-gradient(rgba(118,255,87,.075) 1px, transparent 1px), linear-gradient(90deg, rgba(118,255,87,.075) 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+    .project-visual::after { background-image: none; }
+    .visual-label { font-size: .56rem; letter-spacing: .045em; gap: 8px; }
+    .visual-terminal { left: 13px; right: 13px; bottom: 12px; padding: 9px 10px; border-radius: 1px; border-color: color-mix(in srgb, var(--project-accent) 30%, transparent); background: rgba(2,8,4,.94); font-size: .62rem; }
+    .diagram-node { border-radius: 1px; border-color: color-mix(in srgb, var(--project-accent) 50%, transparent); background: #08150a; font-family: "Courier New", monospace; }
+    .editor-side, .editor-main { border-radius: 1px; }
+    .editor-line { border-radius: 0; height: 4px; }
+    .maze-board { border-radius: 1px; gap: 2px; background: #040804; }
+    .maze-cell { border-radius: 0; }
+    .robot-orb { border-radius: 0; border-style: dashed; }
+    .game-screen { border-radius: 1px; box-shadow: 5px 5px 0 #182719; image-rendering: pixelated; }
+    .project-content { padding: 15px 15px 14px; }
+    .project-meta { align-items: flex-start; margin-bottom: 8px; }
+    .project-type { font-size: .58rem; letter-spacing: .045em; line-height: 1.4; }
+    .project-number { font-size: .58rem; white-space: nowrap; }
+    .project-card h3 { font-family: "Courier New", monospace; font-size: 1.04rem; line-height: 1.3; letter-spacing: -.04em; margin-bottom: 7px; }
+    .project-card p { min-height: 0; font-size: .75rem; line-height: 1.58; color: #a9c9ae; }
+    .tags { gap: 5px; padding: 11px 0 13px; }
+    .tag { border-radius: 1px; border-color: rgba(118,255,87,.2); padding: 3px 6px; font-size: .59rem; color: #b1d9b8; }
+    .project-links { gap: 12px; padding-top: 11px; border-top-color: rgba(118,255,87,.18); }
+    .project-link { font-family: "Courier New", monospace; font-size: .68rem; }
+    .project-counter { font-size: .65rem; }
+    /* Show content immediately; no scroll-reveal delay on first load. */
+    .reveal, .reveal.visible { opacity: 1; transform: none; transition: none; }
+    [hidden] { display: none !important; }
+    .capabilities { padding-top: 38px; }
+    .cap-grid { border-radius: 2px; border-color: rgba(118,255,87,.25); background: rgba(7,18,8,.65); }
+    .capability { padding: 22px; border-color: rgba(118,255,87,.2); }
+    .cap-icon { border-radius: 2px; }
+    .process { gap: 45px; }
+    .step { border-color: rgba(118,255,87,.18); }
+    .contact { padding-bottom: 60px; }
+    .contact-panel { border-radius: 2px; border: 2px solid rgba(118,255,87,.45); background: #07110a; box-shadow: 5px 5px 0 rgba(118,255,87,.13); }
+    .contact-panel::after { color: rgba(118,255,87,.045); }
+    .toast { border-radius: 2px; border-color: var(--green); background: #07110a; font-family: "Courier New", monospace; }
+    footer { border-top-color: rgba(118,255,87,.25); font-family: "Courier New", monospace; }
+    @media (max-width: 1050px) {
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .project-visual { height: 160px; }
+    }
+    @media (max-width: 680px) {
+      .nav { min-height: 59px; }
+      .nav-links { top: 59px; background: rgba(4,12,5,.99); border: 1px solid var(--green); border-radius: 2px; }
+      .hero { padding: 22px 0 17px; }
+      h1 { font-size: clamp(2rem, 9.4vw, 3rem); }
+      .hero-copy { font-size: .82rem; }
+      .experience-panel { padding: 10px; }
+      .experience-top { font-size: .67rem; }
+      .experience-status { width: 100%; margin-left: 18px; }
+      .experience-panel p { font-size: .72rem; }
+      .hero-actions { align-items: stretch; }
+      .hero-actions .button { flex: 1 1 auto; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric { padding: 12px; border-bottom: 1px solid rgba(118,255,87,.18); }
+      .metric:first-child { padding-left: 12px; }
+      .metric:nth-child(3), .metric:nth-child(4) { border-bottom: 0; }
+      .section { padding: 29px 0 42px; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 9px; }
+      .section-head p { max-width: none; }
+      .project-grid { grid-template-columns: 1fr; gap: 14px; }
+      .project-visual { height: 160px; }
+      .project-content { padding: 16px; }
+      .project-card h3 { font-size: 1.08rem; }
+      .project-card p { font-size: .77rem; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .capability { border-right: 0; border-bottom: 1px solid rgba(118,255,87,.2); }
+      .contact-actions { flex-direction: column; }
+      .footer-row { align-items: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#home" aria-label="Ensasys home">
+        <span class="brand-mark">EN//</span><span>ENSASYS<small>Projects by Ethan Htoon</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks"><span aria-hidden="true">☰</span> Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="#capabilities">What I build</a>
+        <a href="#process">Approach</a>
+        <a class="nav-cta" href="#contact">Work with me <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-text">
+          <div class="eyebrow">Independent developer · Singapore</div>
+          <h1>Hi, I’m Ethan Htoon.<br><span class="accent">I build what’s under the hood.</span></h1>
+          <p class="hero-copy">I’m an engineering-minded developer with <strong>around 10 years of programming experience</strong>, building interactive software, programming languages, AI experiments, data tools, games, and engineering simulations.</p>
+          <div class="experience-panel" aria-label="Programming experience and compiler development journey">
+            <div class="experience-top"><span class="experience-led" aria-hidden="true"></span><strong>~10 YEARS PROGRAMMING</strong><span class="experience-status">COMPILER JOURNEY // ONGOING</span></div>
+            <p>My compiler journey has taken me from rough bottom-up string parsing to top-down recursive, automata-based parsing — learning to turn raw text into structured syntax and executable behaviour.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">Explore the projects <span class="arrow" aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">GitHub profile <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="button button-secondary" href="#contact">Freelance enquiries <span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-footnote"><span class="status-dot" aria-hidden="true"></span> Ensasys · Projects, experiments, and things built from scratch</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Selected work</div><h2>Small experiments.<br>Real engineering questions.</h2></div>
+          <p>Open a live demo and try it for yourself. These projects showcase how I approach systems, interfaces, algorithms, and practical problem-solving.</p>
+        </div>
+        <div class="filters reveal" role="group" aria-label="Filter projects by category">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All projects <span>(6)</span></button>
+          <button class="filter" type="button" data-filter="tools" aria-pressed="false">Developer tools</button>
+          <button class="filter" type="button" data-filter="ai" aria-pressed="false">AI & experiments</button>
+          <button class="filter" type="button" data-filter="iot" aria-pressed="false">IoT & systems</button>
+          <button class="filter" type="button" data-filter="games" aria-pressed="false">Games</button>
+        </div>
+
+        <div class="project-grid" id="projectGrid">
+          <article class="project-card reveal" data-category="tools">
+            <div class="project-visual">
+              <div class="visual-label"><span>DATA TOOL / 001</span><span>SCHEMA EXPLORER</span></div>
+              <div class="visual-terminal"><div><span class="prompt">&gt;</span> inspect workbook.xlsx</div><div><span class="dim">tables found:</span> 04 <span class="dim">· candidate keys:</span> 07</div><div><span class="prompt">&gt;</span> generate --dialect postgresql</div></div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span class="project-type">Data engineering · Browser tool</span><span class="project-number">01 / 06</span></div>
+              <h3>Sheet Reverse Engineering</h3>
+              <p>Turn spreadsheet structure into a practical database blueprint. Explore column types, candidate keys, relationships, data-quality concerns, and draft SQL for multiple database dialects.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">SheetJS</span><span class="tag">SQL</span><span class="tag">Data modeling</span></div>
+              <div class="project-links"><a class="project-link" href="https://ensasys.github.io/ensasys-sheet-reverse-engineering-demo/" target="_blank" rel="noopener noreferrer">Launch live demo <span class="link-arrow" aria-hidden="true">↗</span></a><a class="project-link secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">More on GitHub <span class="link-arrow" aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="tools">
+            <div class="project-visual">
+              <div class="visual-label"><span>LANGUAGE LAB / 002</span><span>EPI-LANG IDE</span></div>
+              <div class="visual-editor"><div class="editor-side"><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div></div><div class="editor-main"><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div><div class="editor-line"></div></div></div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span class="project-type">Programming languages · IDE</span><span class="project-number">02 / 06</span></div>
+              <h3>Epi-Lang IDE</h3>
+              <p>An experimental programming language in a self-contained browser IDE. Edit and run code, explore built-in functions and control flow, and draw graphics on an HTML canvas.</p>
+              <div class="tags"><span class="tag">Haxe</span><span class="tag">JavaScript</span><span class="tag">Interpreter</span><span class="tag">Canvas API</span></div>
+              <div class="project-links"><a class="project-link" href="https://ensasys.github.io/ensasys-epicv-demo/" target="_blank" rel="noopener noreferrer">Launch live demo <span class="link-arrow" aria-hidden="true">↗</span></a><a class="project-link secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">More on GitHub <span class="link-arrow" aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="ai">
+            <div class="project-visual">
+              <div class="visual-label"><span>REINFORCEMENT LEARNING / 003</span><span>MAZEMIND</span></div>
+              <div class="maze-board" aria-hidden="true">
+                <i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i>
+                <i class="maze-cell wall"></i><i class="maze-cell agent"></i><i class="maze-cell"></i><i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell wall"></i>
+                <i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell wall"></i>
+                <i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell"></i><i class="maze-cell wall"></i>
+                <i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell wall"></i><i class="maze-cell goal"></i><i class="maze-cell wall"></i>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span class="project-type">Machine learning · Simulation</span><span class="project-number">03 / 06</span></div>
+              <h3>MazeMind — Neural Escape</h3>
+              <p>A from-scratch Deep Q-Network learns to navigate a maze. Watch training, inspect network activations and action values, and experiment with rewards, exploration, and new mazes.</p>
+              <div class="tags"><span class="tag">DQN</span><span class="tag">Reinforcement learning</span><span class="tag">Neural networks</span><span class="tag">Canvas</span></div>
+              <div class="project-links"><a class="project-link" href="https://ensasys.github.io/ensasys-mazemind-neural-ai-demo/" target="_blank" rel="noopener noreferrer">Launch live demo <span class="link-arrow" aria-hidden="true">↗</span></a><a class="project-link secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">More on GitHub <span class="link-arrow" aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="ai">
+            <div class="project-visual">
+              <div class="visual-label"><span>AGENT PLAYGROUND / 004</span><span>ROBO//LAB</span></div>
+              <div class="robot-stage" aria-hidden="true"><div class="robot-orb"></div><div class="pixel-bot"></div><div class="pixel-bot second"></div></div>
+              <div class="visual-terminal" style="bottom:12px; padding:7px 12px"><span class="prompt">PICO &gt;</span> pick up block <span class="dim">→</span> build a tower</div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span class="project-type">AI interaction · Sandbox</span><span class="project-number">04 / 06</span></div>
+              <h3>ROBO//LAB — Retro AI Robot Playground</h3>
+              <p>Give two tiny robots text instructions and observe their actions in a pixel-art sandbox. Try supported offline commands or connect a compatible AI endpoint for more flexible planning.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">AI API</span><span class="tag">Command parsing</span><span class="tag">Simulation</span></div>
+              <div class="project-links"><a class="project-link" href="https://ensasys.github.io/ensasys-robolab-ai-bots-playground-demo/" target="_blank" rel="noopener noreferrer">Launch live demo <span class="link-arrow" aria-hidden="true">↗</span></a><a class="project-link secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">More on GitHub <span class="link-arrow" aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="iot">
+            <div class="project-visual">
+              <div class="visual-label"><span>EMBEDDED TO CLOUD / 005</span><span>LDR SERVO LAB</span></div>
+              <div class="visual-diagram" aria-hidden="true"><div class="diagram-node">LDR<br>Sensor</div><span class="diagram-arrow">→</span><div class="diagram-node">ESP32<br>Control</div><span class="diagram-arrow">→</span><div class="diagram-node">MQTT<br>Telemetry</div></div>
+              <div class="visual-terminal" style="bottom:12px; padding:7px 12px"><span class="prompt">telemetry</span> /lab/servo/angle <span class="dim">→</span> 074°</div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span class="project-type">Embedded systems · IoT</span><span class="project-number">05 / 06</span></div>
+              <h3>LDR Servo Lab — IoT Telemetry Simulator</h3>
+              <p>Explore an ESP32-style light-following servo system across a simulated MQTT, Node-RED, time-series database, SQL, and dashboard pipeline. Edit logic and test fault scenarios.</p>
+              <div class="tags"><span class="tag">ESP32 concepts</span><span class="tag">MQTT</span><span class="tag">Node-RED</span><span class="tag">InfluxDB concepts</span></div>
+              <div class="project-links"><a class="project-link" href="https://ensasys.github.io/ensasys-ldr-servo-lab-demo/" target="_blank" rel="noopener noreferrer">Launch live demo <span class="link-arrow" aria-hidden="true">↗</span></a><a class="project-link secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">More on GitHub <span class="link-arrow" aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="games">
+            <div class="project-visual">
+              <div class="visual-label"><span>GAME DEVELOPMENT / 006</span><span>MINUTE.JS ENGINE</span></div>
+              <div class="robot-stage" aria-hidden="true"><div class="game-screen"><div class="game-pixel"></div><div class="game-title">MINUTE.JS<br><span style="font-size:.62rem">PLAY / EXPERIMENT / REPEAT</span></div></div></div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span class="project-type">Game development · Custom engine</span><span class="project-number">06 / 06</span></div>
+              <h3>2D Games — Minute.js Engine</h3>
+              <p>A collection of 2D games built with a customized JavaScript game engine. Explore the playable projects to see game mechanics, interactive systems, and creative implementation in action.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">Game engine</span><span class="tag">2D games</span><span class="tag">Gameplay logic</span></div>
+              <div class="project-links"><a class="project-link" href="https://synurta.itch.io" target="_blank" rel="noopener noreferrer">Play the games <span class="link-arrow" aria-hidden="true">↗</span></a><a class="project-link secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">More on GitHub <span class="link-arrow" aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+        </div>
+        <p class="project-counter" id="projectCounter" aria-live="polite" style="display:block; text-align:right; margin-top:17px">Showing 6 projects</p>
+      </div>
+    </section>
+
+    <div class="metrics" aria-label="Portfolio summary">
+      <div class="shell metric-grid">
+        <div class="metric"><strong>06</strong><span>Projects to explore</span></div>
+        <div class="metric"><strong>04+</strong><span>Technical domains</span></div>
+        <div class="metric"><strong>Browser-first</strong><span>Interactive demos</span></div>
+        <div class="metric"><strong>End-to-end</strong><span>From logic to interface</span></div>
+      </div>
+    </div>
+
+    <section class="section capabilities" id="capabilities">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">What I can help build</div><h2>From rough idea<br>to a working prototype.</h2></div>
+          <p>I’m most interested in projects where the thinking matters as much as the interface — and where making a system visible helps people understand it.</p>
+        </div>
+        <div class="cap-grid reveal">
+          <article class="capability"><div class="cap-icon" aria-hidden="true">⌘</div><h3>Interactive web tools</h3><p>Single-page applications, data explorers, browser-based utilities, dashboards, and proof-of-concept interfaces designed to make workflows easier to test.</p></article>
+          <article class="capability"><div class="cap-icon" aria-hidden="true">⌁</div><h3>AI & algorithm demos</h3><p>Visual experiments for agents, learning algorithms, rule-based systems, and API-powered experiences — with controls that help users see what is happening.</p></article>
+          <article class="capability"><div class="cap-icon" aria-hidden="true">◈</div><h3>Engineering simulations</h3><p>Embedded and IoT concepts, telemetry flows, sensor-to-dashboard simulations, technical data processing, and clear demonstrations of system behavior.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="shell process">
+        <div class="process-intro reveal">
+          <div class="eyebrow">A practical approach</div>
+          <h2>Clear scope.<br>Visible progress.</h2>
+          <p>I like projects to be understandable from the beginning: what problem we are solving, what the first useful version needs to do, and how we will know it works.</p>
+        </div>
+        <div class="steps reveal">
+          <div class="step"><div class="step-no">01 / SCOPE</div><div><h3>Understand the problem</h3><p>Agree on the user, the key workflow, constraints, and what a useful first version should demonstrate.</p></div></div>
+          <div class="step"><div class="step-no">02 / BUILD</div><div><h3>Create a testable version</h3><p>Build the core functionality first, with a straightforward interface and small, verifiable steps.</p></div></div>
+          <div class="step"><div class="step-no">03 / REFINE</div><div><h3>Test, explain, and improve</h3><p>Check edge cases, make behavior observable, and document assumptions or limitations clearly.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="shell">
+        <div class="contact-panel reveal">
+          <div class="contact-content">
+            <div class="eyebrow">Have a project in mind?</div>
+            <h2>Let’s turn a tricky idea<br>into something tangible.</h2>
+            <p>For freelance tasks, prototypes, technical demos, or small tools, start with the problem you want to solve. I’m especially interested in work that combines thoughtful logic with a useful, interactive result.</p>
+            <div class="contact-note">Prefer a specific platform? Update the Upwork link in this page to your profile before publishing.</div>
+          </div>
+          <div class="contact-actions">
+            <a class="button button-primary" href="https://www.upwork.com/" target="_blank" rel="noopener noreferrer">Open Upwork <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="button button-secondary" href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">View GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+            <button class="button button-secondary" id="copyIntro" type="button">Copy project intro <span class="arrow" aria-hidden="true">⎘</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-row">
+      <div>© <span id="year"></span> Ensasys · Ethan Htoon. Built with HTML, CSS & JavaScript.</div>
+      <div class="footer-links"><a href="https://github.com/ensasys" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://synurta.itch.io" target="_blank" rel="noopener noreferrer">itch.io ↗</a><a href="#home">Back to top ↑</a></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const filterButtons = Array.from(document.querySelectorAll('.filter'));
+      const cards = Array.from(document.querySelectorAll('.project-card'));
+      const counter = document.getElementById('projectCounter');
+      const toast = document.getElementById('toast');
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.getElementById('navLinks');
+      let toastTimer;
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+      }
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const category = button.dataset.filter;
+          filterButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+          let visible = 0;
+          cards.forEach(card => {
+            const matches = category === 'all' || card.dataset.category === category;
+            card.hidden = !matches;
+            if (matches) visible++;
+          });
+          counter.textContent = `Showing ${visible} ${visible === 1 ? 'project' : 'projects'}`;
+        });
+      });
+
+      menuToggle.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(open));
+      });
+      navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }));
+
+      document.getElementById('copyIntro').addEventListener('click', async () => {
+        const intro = 'Hi, I’m Ethan Htoon from Ensasys. I build interactive web tools, AI and algorithm demos, data utilities, and engineering simulations. I’d be happy to discuss your project, understand the requirements, and propose a practical first version.';
+        try {
+          await navigator.clipboard.writeText(intro);
+          showToast('Project introduction copied to clipboard.');
+        } catch (error) {
+          const field = document.createElement('textarea');
+          field.value = intro;
+          field.setAttribute('readonly', '');
+          field.style.position = 'fixed';
+          field.style.opacity = '0';
+          document.body.appendChild(field);
+          field.select();
+          const copied = document.execCommand('copy');
+          field.remove();
+          showToast(copied ? 'Project introduction copied to clipboard.' : 'Clipboard access unavailable in this browser.');
+        }
+      });
+
+      const revealItems = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        revealItems.forEach(item => observer.observe(item));
+      } else {
+        revealItems.forEach(item => item.classList.add('visible'));
+      }
+    })();
+  </script>
+</body>
+</html>
